@@ -1,0 +1,46 @@
+body {
+	background: #111111  top left repeat;
+	margin: 0;
+	padding: 0;
+	font: 12px normal Verdana, Arial, Helvetica, sans-serif;
+	height: 100%;
+	color:#000;
+}
+
+img {border: none;}
+
+a {
+ color: #fff;
+text-decoration:none; }
+
+.video {
+	width: 1280px;
+  height:720px;
+}
+
+
+#v_wrapper{
+display: inline-block;
+     background-color: rgba(6, 115, 206, 1);
+     margin: 0 auto ;
+     border: solid 1px rgba(6, 115, 206,1);
+     box-shadow: 0 0 10px rgba(6, 115, 206,1);
+
+}
+
+#player_area {
+        width:100%;
+        margin-top:60px;
+        text-align: center;
+
+}
+
+#playvideo {
+	width: 640px;
+        height:360px;
+
+/* make the video stretch to fill the screen in WebKit */
+:-webkit-full-screen #myvideo {
+width: 100%;
+height: 100%;
+}

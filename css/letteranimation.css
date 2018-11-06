@@ -1,0 +1,14 @@
+ body {
+         background: Black ;
+         color: white;
+        }
+
+  	
+  	#textfuzz span {
+  	   text-shadow: 0 0 1px rgba(255,255,0,1);
+  	   color: transparent;
+           border-top: solid #FFFF00 1px;
+           border-bottom: solid #FFFF00 1px;
+           font-size:20pt;
+ 	}
+

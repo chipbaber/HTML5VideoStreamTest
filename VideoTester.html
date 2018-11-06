@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Full Screen Example</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Active Architecture developed by the NAS Story Studio. For Questions contact Chip Baber 703-364-1521">
+<script src="js/jquery.min.js" type="text/javascript"></script>
+  <link type="text/css" rel="stylesheet" href="css/videotesting.css"/>
+</head>
+<body>
+
+<div id="player_area">
+     <div id="v_wrapper">
+     
+     <!--<img id="poster" src="images/OverviewPoster.png"></img>-->
+     
+     <video id="playvideo"  poster="images/OverviewPoster.png" controls >
+        <source src="video/CloudArchitectureOverview_640x360.mp4" type="video/mp4"/>
+     </video>
+     
+     </div>  
+
+<!-- This script needs to be at the bottom of the page for some reason-->
+<script>
+   var _video = document.getElementById("playvideo"); 
+
+
+function toggleFullScreen() {
+if (!document.mozFullScreen && !document.webkitFullScreen) {
+if (_video.mozRequestFullScreen) {
+_video.mozRequestFullScreen();
+} else {
+_video.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+}
+} else {
+if (document.mozCancelFullScreen) {
+document.mozCancelFullScreen();
+} else {
+document.webkitCancelFullScreen();
+}
+}
+}
+
+
+$('#poster').live('click', function() {
+       $('#poster').hide();
+        $('#playvideo').show();
+       toggleFullScreen();
+       _video.play();
+}); 
+
+
+document.addEventListener("keydown", function(e) {
+if (e.keyCode == 13) {
+toggleFullScreen();
+}
+}, false);
+
+</script>
+</video>
+</body>
+</html>
+

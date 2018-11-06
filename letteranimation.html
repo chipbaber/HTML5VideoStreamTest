@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+
+  <title>Blurred Text Animation</title>
+  <link type="text/css" rel="stylesheet" href="css/letteranimation.css"/>
+  <link type="text/css" rel="stylesheet" href="css/letterflow.css"/>
+  
+  <script language="JavaScript" src="js/jquery.min.js"></script>
+	<script src="js/jquery.lettering.js"></script>
+	<script src="js/color.js"></script>
+	<script src="js/textshadow.js"></script>
+	
+	<script>
+        //Scipt code for letteranmiation
+	 $(function() {
+	  // apply span to lettering
+          $("#textfuzz").lettering();
+	  var text = $("#textfuzz"),
+          numLetters = text.find("span").length;
+          var child = Math.floor(Math.random()*numLetters)+1;
+          var shadowblur = Math.floor(Math.random()*15);		
+                
+                
+	  function randomBlurize() {
+              //Actions
+              blurLetter(getChild(), getShadow());  showLetter(getChild(), 0); changeText(getChild());
+              
+              
+		// Call itself recurssively
+		setTimeout(randomBlurize, 50);
+               
+	  } 
+          
+          function blurLetter(v_child, v_shadowblur) {
+               text.find("span:nth-child(" +v_child+ ")").animate({'textShadowBlur': v_shadowblur});
+          }
+          
+          function showLetter(v_child, v_shadowblur) {
+               text.find("span:nth-child(" +v_child+ ")").animate({'textShadowBlur': v_shadowblur});
+          }
+          
+          function changeText(v_child) {
+              text.find("span:nth-child(" +v_child+ ")").text(v_child%2);
+          }
+          
+          function getChild() {
+              return Math.floor(Math.random()*numLetters)+1;
+          }
+          function getShadow(){
+              return Math.floor(Math.random()*15);
+          }
+          
+ 	  randomBlurize();
+         
+
+	 });
+	</script>
+        
+  
+  <script>
+          //Scipt code for letter flow
+	 $(function() {
+	  // apply span to lettering
+          $("#textflow").lettering();
+	  var flowtext = $("#textflow"), flownumLetters = flowtext.find("span").length;
+          var f_child =1;
+         
+          function changeTextInFlow() {
+              f_child = Math.floor(Math.random()*flownumLetters)+1;
+              
+              if (flowtext.find("span:nth-child(" +f_child+ ")").text() == 0) {
+                 flowtext.find("span:nth-child(" +f_child+ ")").text("1");
+              }
+              else {
+                 flowtext.find("span:nth-child(" +f_child+ ")").text("0"); 
+              }
+              
+                           
+              // Call itself recurssively
+              setTimeout(changeTextInFlow, 100);
+          }
+         
+         setTimeout(changeTextInFlow(), 2000);
+          
+         });
+  </script>
+  
+ </head>
+
+<body>
+	<!----><h2>Data Animation: Random Flow</h2>
+        <p>Developed with CSS3 & JQuery</p>
+	<br><br>
+	  <div id="textfuzz">
+          10101110101110111011101110101111110111011101110101
+          </div>
+          <br>
+	<h2>Data Animation: Text Flowing</h2>
+        <p>Developed with CSS3 & JQuery</p>
+	<br><br>          
+         <div id="textflow" class="loader">11011001010101101011</div>
+
+	
+	
+</body>
+</html>

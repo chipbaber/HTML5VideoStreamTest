@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></meta>
+    </head>
+    <style>
+         body{
+         background-color:Black;
+         color:White;
+         }   
+         
+         #particle_stream{
+           height:20px;
+           width: 400px;
+         }
+         
+         #particle_stream2{
+           height:20px;
+           width: 400px;
+         }
+         
+         #particle_stream_holder{
+           float: left;
+           position: relative;
+           background:rgba(0, 49, 196, 0.3);
+           border-top: solid #0031C4 1px;
+           border-bottom: solid #0031C4 1px;
+           box-shadow: 0px 0px 12px 6px rgba(0, 49, 196, 0.5);
+          }
+         
+       
+         
+    </style>
+    
+    <script language="JavaScript" src="js/jquery.min.js"></script>
+    
+    <script>
+$(function(){
+        
+	var W, H, canvas, ctx, particleCount = 20, particles = [], c1, c2;
+	W = $("#particle_stream").innerHeight()*.6;
+	H = $("#particle_stream").innerWidth()*.7;
+         
+        c1="#003EFF";
+        c2="#7D9EFF";
+	canvas = $("#particle_stream").get(0);
+	canvas.width = W;
+	canvas.height = H;
+	ctx = canvas.getContext("2d");
+	console.log( ctx) ;
+
+//Setup particle class
+function Particle(){
+	this.x = Math.random() * W;
+	this.y = Math.random() * H;
+	this.direction ={"x": -1 + Math.random()*2, "y": -1 + Math.random()*2};
+	this.vx = 2 * Math.random() + 4 ;
+	this.vy = 2 * Math.random() + 4;
+	this.radius = .9 * Math.random() + 1.25;
+	this.move = function(){
+		this.x += this.vx * this.direction.x;
+		this.y += this.vy * this.direction.y;
+	};
+        
+	this.changeDirection = function(axis){this.direction[axis] *= -1; };
+        
+	this.draw = function() {
+		ctx.beginPath();
+                
+               var v_num = Math.round(((Math.random()*100)%3)); 
+                
+                if (v_num == 0){
+		 ctx.fillStyle = c1;
+                }
+                else {
+                 ctx.fillStyle = c2;
+                }
+                
+                
+		ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+		ctx.fill();
+	};
+        
+	this.boundaryCheck = function(){
+		if(this.x >= W){
+			this.x = W;
+			this.changeDirection("x");
+		}
+		else if(this.x <= 0){
+			this.x = 0;
+			this.changeDirection("x");
+		}
+		if(this.y >= H){
+			this.y = H;
+			this.changeDirection("y");
+		}
+		else if(this.y <= 0){
+			this.y = 0;
+			this.changeDirection("y");
+		}
+	};
+} //end particle class
+
+function clearCanvas(){
+	ctx.clearRect(0,0, W, H);
+} //end clear canvas
+
+function createParticles(){
+	for (var i = particleCount-1; i >= 0; i--) {
+		p = new Particle();
+		particles.push(p);
+	}
+}// end createParticles
+
+function drawParticles(){
+	for (var i = particleCount-1; i >= 0; i--){
+		p = particles[i];
+		p.draw();
+	}
+} //end drawParticles
+
+function updateParticles(){
+	for(var i = particles.length - 1; i >=0; i--){
+		p = particles[i];
+		p.move();
+		p.boundaryCheck();
+
+	}
+}//end updateParticles
+
+function initParticleSystem(){
+	createParticles();
+	drawParticles();
+}
+
+function animateParticles(){
+	clearCanvas();
+	drawParticles();
+	updateParticles();
+}
+
+initParticleSystem();
+setInterval(animateParticles,1000/15);
+
+});
+</script>
+    
+    
+<script>
+$(function(){
+        
+	var W, H, canvas, ctx, particleCount = 60, particles = [], c1, c2;
+	H = $("#particle_stream2").innerHeight()*.6;
+	W = $("#particle_stream2").innerWidth()*.95;
+         
+        c1="#003EFF";
+        c2="#FFFFFF";
+	canvas = $("#particle_stream2").get(0);
+	canvas.width = W;
+	canvas.height = H;
+	ctx = canvas.getContext("2d");
+	console.log( ctx) ;
+
+//Setup particle class
+function Particle(){
+	this.x = Math.random() * W;
+	this.y = Math.random() * H;
+	this.direction ={"x": -1 + Math.random()*2, "y": -1 + Math.random()*2};
+	this.vx = 2 * Math.random() + 4 ;
+	this.vy = 2 * Math.random() + 4;
+	this.radius = .6 * Math.random() + 1.00;
+	this.move = function(){
+		this.x += this.vx * this.direction.x;
+		this.y += this.vy * this.direction.y;
+	};
+        
+	this.changeDirection = function(axis){this.direction[axis] *= -1; };
+        
+	this.draw = function() {
+		ctx.beginPath();
+                
+               var v_num = Math.round(((Math.random()*100)%3)); 
+                
+                if (v_num == 0){
+		 ctx.fillStyle = c1;
+                }
+                else {
+                 ctx.fillStyle = c2;
+                }
+                
+                
+		/*ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);*/
+                ctx.rect(this.x,this.y,this.radius,this.radius);
+                
+		ctx.fill();
+	};
+        
+	this.boundaryCheck = function(){
+		if(this.x >= W){
+			this.x = W;
+			this.changeDirection("x");
+		}
+		else if(this.x <= 0){
+			this.x = 0;
+			this.changeDirection("x");
+		}
+		if(this.y >= H){
+			this.y = H;
+			this.changeDirection("y");
+		}
+		else if(this.y <= 0){
+			this.y = 0;
+			this.changeDirection("y");
+		}
+	};
+} //end particle class
+
+function clearCanvas(){
+	ctx.clearRect(0,0, W, H);
+} //end clear canvas
+
+function createParticles(){
+	for (var i = particleCount-1; i >= 0; i--) {
+		p = new Particle();
+		particles.push(p);
+	}
+}// end createParticles
+
+function drawParticles(){
+	for (var i = particleCount-1; i >= 0; i--){
+		p = particles[i];
+		p.draw();
+	}
+} //end drawParticles
+
+function updateParticles(){
+	for(var i = particles.length - 1; i >=0; i--){
+		p = particles[i];
+		p.move();
+		p.boundaryCheck();
+
+	}
+}//end updateParticles
+
+function initParticleSystem(){
+	createParticles();
+	drawParticles();
+}
+
+function animateParticles(){
+	clearCanvas();
+	drawParticles();
+	updateParticles();
+}
+
+initParticleSystem();
+setInterval(animateParticles,1000/15);
+
+});
+</script>
+    
+    <body>
+    
+    <br>
+    <h2>Data Animation: Light Beams</h2>
+    <p>Developed with HTML5 Canvas</p>
+    <br><br>
+    <div id="particle_stream_holder">
+    <canvas id="particle_stream"></canvas>
+    </div>
+    <br><br>
+        <br>
+    <h2>Data Animation: Flowing Packets with Collisions</h2>
+    <p>Developed with HTML5 Canvas</p>
+    <br><br>
+    <div id="particle_stream_holder">
+    <canvas id="particle_stream2"></canvas>
+    </div>
+    <br><br>
+    
+    </body>
+</html>
